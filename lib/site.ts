@@ -3,7 +3,7 @@ export const SITE_TAGLINE = "Free pay calculators. Instant answers.";
 export const CONTACT_EMAIL = "hello@paymath.app";
 
 export function getSiteUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL || "https://paymath.vercel.app";
+  const raw = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mypaymath.com";
   return raw.replace(/\/$/, "");
 }
 
