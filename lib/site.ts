@@ -45,6 +45,24 @@ export const TOOLS: Tool[] = [
     short: "Hours to earn",
     description: "See how many hours it takes to earn a dollar amount.",
   },
+  {
+    href: "/biweekly-paycheck-calculator",
+    label: "Biweekly paycheck",
+    short: "Biweekly",
+    description: "See a biweekly paycheck from hourly pay or annual salary.",
+  },
+  {
+    href: "/salary-to-monthly",
+    label: "Salary to monthly",
+    short: "Monthly pay",
+    description: "Convert annual salary into monthly, biweekly, and weekly pay.",
+  },
+  {
+    href: "/time-and-a-half-calculator",
+    label: "Time and a half",
+    short: "Time and a half",
+    description: "Calculate overtime at 1.5× for hours over 40.",
+  },
 ];
 
 export const NAV_TOOLS: Tool[] = [
@@ -62,7 +80,12 @@ export function relatedTools(currentHref: string): Tool[] {
   } else {
     aliases.add(currentHref);
   }
-  return NAV_TOOLS.filter((tool) => !aliases.has(tool.href));
+  return TOOLS.filter((tool) => {
+    if (aliases.has(tool.href)) return false;
+    // Homepage and /hourly-to-salary are the same calculator; keep one related link.
+    if (tool.href === "/hourly-to-salary") return false;
+    return true;
+  });
 }
 
 export const DEFAULTS = {

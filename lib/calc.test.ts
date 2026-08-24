@@ -182,3 +182,32 @@ describe("helpers", () => {
     ).toBe(25);
   });
 });
+
+describe("new calculator page numbers", () => {
+  it("gives $1,600 biweekly at $20/hr × 40h × 2", () => {
+    const b = breakdownFromHourly(20, 40, 52);
+    expect(b.weekly).toBe(800);
+    expect(b.biweekly).toBe(1600);
+  });
+
+  it("gives $5,000 monthly from $60,000 annual salary", () => {
+    const b = breakdownFromAnnual(60_000, 40, 52);
+    expect(b.monthly).toBe(5000);
+    expect(b.semimonthly).toBe(2500);
+    expect(b.weekly).toBeCloseTo(60_000 / 52, 10);
+  });
+
+  it("pays 45 hours at $20 and 1.5× as $950", () => {
+    const r = overtimePay({
+      hourlyRate: 20,
+      hoursWorked: 45,
+      threshold: 40,
+      multiplier: 1.5,
+    });
+    expect(r.regularHours).toBe(40);
+    expect(r.overtimeHours).toBe(5);
+    expect(r.regularPay).toBe(800);
+    expect(r.overtimePay).toBe(150);
+    expect(r.grossPay).toBe(950);
+  });
+});
